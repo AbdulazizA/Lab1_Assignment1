@@ -10,131 +10,126 @@
 * @version July 2000
 */
 public class PointCP3 implements PointCP6{
-//Instance variables ************************************************
-/**
-* Contains C(artesian) or P(olar) to identify the type of
-* coordinates that are being dealt with.
-*/
-private char typeCoord;
-
-/**
-* Contains the current value of X or RHO depending on the type
-* of coordinates.
-*/
-private double x;
-
-/**
-* Contains the current value of Y or THETA value depending on the
-* type of coordinates.
-*/
-private double y;
+	//Instance variables ************************************************
+	/**
+	 * Contains C(artesian) or P(olar) to identify the type of
+	* coordinates that are being dealt with.
+	*/
+	private char typeCoord;
+	
+	/**
+	* Contains the current value of X or RHO depending on the type
+	* of coordinates.
+	*/
+	private double x;
+	
+	/**
+	* Contains the current value of Y or THETA value depending on the
+	* type of coordinates.
+	*/
+	private double y;
 	
 
-//Constructors ******************************************************
-
-/**
-* Constructs a coordinate object, with a type identifier.c
-*/
-public PointCP3(char type, double xOrRho, double yOrTheta){
-	if(type != 'C' && type != 'P')
-	throw new IllegalArgumentException();
-	if(type == 'P') {
-		this.x = (Math.cos(Math.toRadians(y))*x);
-		this.y = (Math.sin(Math.toRadians(y))*x);
+	//Constructors ******************************************************
 	
-	} else {
-		this.x = xOrRho;
-		this.y = yOrTheta;
+	/**
+	* Constructs a coordinate object, with a type identifier.c
+	*/
+	public PointCP3(char type, double xOrRho, double yOrTheta){
+		if(type != 'C' && type != 'P')
+		throw new IllegalArgumentException();
+		if(type == 'P') {
+			this.x = (Math.cos(Math.toRadians(y))*x);
+			this.y = (Math.sin(Math.toRadians(y))*x);
+		
+		} else {
+			this.x = xOrRho;
+			this.y = yOrTheta;
+		}
+		this.typeCoord = 'C';
 	}
-	this.typeCoord = 'C';
-}
+		
 	
-
-//Instance methods **************************************************
-
-
-public double getX(){
-		return x;
-}
-
-public double getY(){
-		return y;
-}
-
-public double getRho(){
-		return (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
-}
-
-public double getTheta(){
-
-		return Math.toDegrees(Math.atan2(y, x));
-}
-
+	//Instance methods **************************************************
 	
-/**
-* Converts Cartesian coordinates to Polar coordinates.
-*/
-public PointCP2 convertStorageToPolar(){
-	return new PointCP2('P',getRho(),getTheta());
-}
 	
-/**
-* Converts Polar coordinates to Cartesian coordinates.
-*/
-public PointCP3 convertStorageToCartesian(){
-	if(typeCoord != 'C'){
-		//Calculate X and Y
-		double temp = getX();
-		y = getY();
-		x = temp;
-
-		typeCoord = 'C';	//Change coord type identifier
+	public double getX(){
+			return x;
 	}
-	return new PointCP3('C',x,y);
-}
-
-/**
-* Calculates the distance in between two points using the Pythagorean
-* theorem  (C ^ 2 = A ^ 2 + B ^ 2). Not needed until E2.30.
-*
-* @param pointA The first point.
-* @param pointB The second point.
-* @return The distance between the two points.
-*/
-public double getDistance(PointCP6 pointB)
-{
-	// Obtain differences in X and Y, sign is not important as these values
-	// will be squared later.
-	double deltaX = getX() - pointB.getX();
-	double deltaY = getY() - pointB.getY();
- 
-	return Math.sqrt((Math.pow(deltaX, 2) + Math.pow(deltaY, 2)));
-}
-
-/**
-* Rotates the specified point by the specified number of degrees.
-* Not required until E2.30
-*
-* @param point The point to rotate
-* @param rotation The number of degrees to rotate the point.
-* @return The rotated image of the original point.
-*/
-public PointCP3 rotatePoint(double rotation){
-	double radRotation = Math.toRadians(rotation);
-	double X = getX();
-	double Y = getY();
-     
-	return new PointCP3('C',(Math.cos(radRotation) * X) - (Math.sin(radRotation) * Y),
-	(Math.sin(radRotation) * X) + (Math.cos(radRotation) * Y));
-}
-
-/**
-* Returns information about the coordinates.
-*
-* @return A String containing information about the coordinates.
-*/
-public String toString(){
-	return ("Stored as Cartesian "+ "[" + getX() + "," + getY() + "]");
-}
-
+	
+	public double getY(){
+			return y;
+	}
+	
+	public double getRho(){
+			return (Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)));
+	}
+	
+	public double getTheta(){
+	
+			return Math.toDegrees(Math.atan2(y, x));
+	}
+	
+		
+	/**
+	* Converts Cartesian coordinates to Polar coordinates.
+	*/
+	public PointCP2 convertStorageToPolar(){
+		typeCoord = 'P';
+		return new PointCP2(typeCoord,getRho(),getTheta());
+	}
+	
+	/**
+	* Calculates the distance in between two points using the Pythagorean
+	* theorem  (C ^ 2 = A ^ 2 + B ^ 2). Not needed until E2.30.
+	*
+	* @param pointA The first point.
+	* @param pointB The second point.
+	* @return The distance between the two points.
+	*/
+	public double getDistance(PointCP6 pointB)
+	{
+		// Obtain differences in X and Y, sign is not important as these values
+		// will be squared later.
+		double deltaX = getX() - pointB.getX();
+		double deltaY = getY() - pointB.getY();
+	 
+		return Math.sqrt((Math.pow(deltaX, 2) + Math.pow(deltaY, 2)));
+	}
+	
+	/**
+	* Rotates the specified point by the specified number of degrees.
+	* Not required until E2.30
+	*
+	* @param point The point to rotate
+	* @param rotation The number of degrees to rotate the point.
+	* @return The rotated image of the original point.
+	*/
+	public PointCP3 rotatePoint(double rotation){
+		double radRotation = Math.toRadians(rotation);
+		double X = getX();
+		double Y = getY();
+	     
+		return new PointCP3('C',(Math.cos(radRotation) * X) - (Math.sin(radRotation) * Y),
+		(Math.sin(radRotation) * X) + (Math.cos(radRotation) * Y));
+	}
+	
+	/**
+	* Returns information about the coordinates.
+	*
+	* @return A String containing information about the coordinates.
+	*/
+	public String toString(){
+		return ("Stored as Cartesian "+ "[" + getX() + "," + getY() + "]");
+	}
+	@Override
+	public PointCP3 convertStorageToCartesian() {
+		return new PointCP3('C', this.x, this.y);
+	}
+	
+	
+	@Override
+	public char getType() {
+		return 'C';
+	}
 }

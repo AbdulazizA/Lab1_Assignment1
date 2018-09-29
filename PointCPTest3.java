@@ -1,4 +1,6 @@
 import java.io.*;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 /**
  * This class prompts the user for a set of coordinates, and then 
@@ -61,7 +63,34 @@ public class PointCPTest3{
       System.out.println("\nAfter asking to store as Cartesian:\n" + point3);
       point2.convertStorageToPolar();
       System.out.println("\nAfter asking to store as Polar:\n" + point2);
-  
+      System.out.println ("\nNow enter another point to compute the distance:");
+		PointCP3 other = new PointCP3('C', 0, 0);
+		try {
+			other = getInput ();
+		} catch (IOException ex) {
+			System.out.println("Error getting input. Ending program.");
+		}
+		System.out.println ("Origin point: " + point3);
+		System.out.println ("New point: " + other);
+		System.out.println ("The distance between two point is " +
+			point3.getDistance (other));
+	    
+	    
+	 // Rotate the point with given rotation degree
+	 		double rotation = 0.0;
+	 		boolean get = false;
+	 		while (!get) {
+	 			System.out.print ("\nEnter the angle in degree for rotation: ");
+	 			get = true; 
+	 			try {
+	 				rotation = getRotation ();
+	 			} catch (InputMismatchException exc) {
+	 				System.out.println ("Illegal input. Try again.");
+	 				get = false;
+	 			}
+	 		}
+	 		PointCP3 afterRot = point3.rotatePoint (rotation);
+	 		System.out.println ("After rotation, the point would be " + afterRot);
  // the following code is to do some test trials with some time tests
    /* for (int i=0; i<10 ; i++) {
     	System.out.println("\nbegining of tests: " + (i+1));
@@ -91,6 +120,12 @@ public class PointCPTest3{
     	System.out.println("The Following Test took: " + elapsedTime + " ms");
     }*/
   }
+  public static double getRotation () throws InputMismatchException {
+		Scanner input = new Scanner (System.in);
+		int result = input.nextInt ();
+		input.close ();
+		return result;
+	}
   /**
    * This method obtains input from the user and verifies that
    * it is valid.  When the input is valid, it returns a PointCP3

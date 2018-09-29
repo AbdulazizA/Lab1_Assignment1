@@ -72,21 +72,7 @@ public class PointCP2 implements PointCP6 {
     public double getTheta() {
         return theta;
     }
-
-    /**
-     * Converts Cartesian coordinates to Polar coordinates.
-     * Does nothing since this implementation has only one storage format
-     */
-    public PointCP2 convertStorageToPolar(){
-    	if (typeCoord != 'P') {
-        	double temp = getRho();
-        	theta = getTheta();
-        	rho = temp;
-        	typeCoord = 'P';
-        }
-        return new PointCP2('P',rho,theta);
-    }
-
+    
     /**
      * Converts Polar coordinates to Cartesian coordinates.
      * Does nothing since this implementation has only one storage format
@@ -139,4 +125,14 @@ public class PointCP2 implements PointCP6 {
     public String toString() {
         return "Stored as Polar " + "[" + getRho() + "," + getTheta() + "]";
     }
+    
+	@Override
+	public PointCP2 convertStorageToPolar() {
+		return new PointCP2('P', this.rho, this.theta);
+	}
+
+	@Override
+	public char getType() {
+		return 'P';
+	}
 }
