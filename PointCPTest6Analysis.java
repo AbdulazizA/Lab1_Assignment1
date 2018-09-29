@@ -90,10 +90,10 @@ public class PointCPTest6Analysis {
 		//Time for getDistance(PointCP2 other)
 		PointCP6 point;
 		if(design == 2) {
-			point = new PointCP2(r.nextBoolean() ? 'C' : 'P', Math.random()*1000000, Math.random()*1000000);
+			point = new PointCP2(r.nextBoolean() ? 'C' : 'P', Math.random()*1000, Math.random()*1000);
 		}
 		else {
-			point = new PointCP3(r.nextBoolean() ? 'C' : 'P', Math.random()*1000000, Math.random()*1000000);
+			point = new PointCP3(r.nextBoolean() ? 'C' : 'P', Math.random()*1000, Math.random()*1000);
 		}
 		start = System.currentTimeMillis();
 		for(int i = 0; i < 1000000; i++) {
