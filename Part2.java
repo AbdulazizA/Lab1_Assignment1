@@ -138,5 +138,5 @@ public class Part2 {
 		System.out.println("Vector and Summation Time: " + vectorTimeAndSum(size)+ " ns");
 	}
 	
-	
+
 }
