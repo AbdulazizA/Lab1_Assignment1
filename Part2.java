@@ -76,10 +76,10 @@ public class Part2 {
 		for (int i = 0; i < 1000; i++){
 			StartTime = System.nanoTime();
 			for (int j = 0; j < size; j++){
-				//FILL ARRAYLIST
+			//Array list
 			}
 			endTimeFill = System.nanoTime();
-			//Sum Indexes of Arraylist
+			//Array list and sum code
 			endTimeAdd = System.nanoTime();
 			elapsedTimeSum += (endTimeAdd - StartTime)-(endTimeFill-StartTime);
 			denominator++;
@@ -115,11 +115,10 @@ public class Part2 {
 		for (int i = 0; i < 1000; i++){
 			StartTime = System.nanoTime();
 			for (int j = 0; j < size; j++){
-				//FILL VECTOR
-				
+			//Vector code
 			}
 			endTimeFill = System.nanoTime();
-			//Sum Indexes of Vector
+			//Vector and sum code
 			endTimeAdd = System.nanoTime();
 			elapsedTimeSum += (endTimeAdd - StartTime)-(endTimeFill-StartTime);
 			denominator++;
@@ -137,6 +136,4 @@ public class Part2 {
 		System.out.println("Array List and Summation Time: " + arrayListTimeAndSum(size)+ " ns");
 		System.out.println("Vector and Summation Time: " + vectorTimeAndSum(size)+ " ns");
 	}
-	
-	
 }
